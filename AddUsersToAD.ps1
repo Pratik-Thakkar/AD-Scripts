@@ -1,6 +1,6 @@
 #AddUsers From List
 $arr = Import-Csv -Path usersToAdd.csv
-$initialPassword = "!ManageCloud2017"
+$initialPassword = ""
 $pscred = Get-Credential
 
 #Gathering AD Group Objects"
@@ -19,7 +19,7 @@ foreach($user in $arr)
     $fullname = $user.fullname
     $firstname = $user.firstname
     $lastname = $user.lastname
-    $newUser = New-ADUser -SamAccountName $username -Name $fullname -DisplayName $fullname -GivenName $firstname -Surname $lastname -Enable $true -AccountPassword (ConvertTo-SecureString -AsPlainText "$initialPassword" -Force) -Credential $pscred -Path "OU=HostingOpsAdmins,OU=UsersGroups,DC=AZURE,DC=CA,DC=imanage,DC=work"
+    $newUser = New-ADUser -SamAccountName $username -Name $fullname -DisplayName $fullname -GivenName $firstname -Surname $lastname -Enable $true -AccountPassword (ConvertTo-SecureString -AsPlainText "$initialPassword" -Force) -Credential $pscred -Path "OU=,OU=,DC=,DC=,DC=,DC="
     echo "Adding $username - $fullname"
     echo "Adding to Groups"
     Add-ADGroupMember $groupDA01 -Member $newUser
